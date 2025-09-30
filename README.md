@@ -1,1 +1,1 @@
-# java-movie-precourse
+# java-movie-oop-seminar-v1
