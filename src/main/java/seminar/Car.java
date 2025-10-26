@@ -13,9 +13,8 @@ public class Car {
     }
 
     public Car moved() {
-        if (moveStrategy.canMove()) {
+        if (moveStrategy.canMove())
             return new Car(name, position.moved(), moveStrategy);
-        }
         return this;
     }
 }
