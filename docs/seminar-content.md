@@ -15,18 +15,18 @@
         1. 빨리 끝났을 시에 새로운 요구사항을 추가하여 작성했던 코드를 얼마나 유연하게 변경할 수 있을지 실습합니다.
 
 4. Live Coding
-   1. 실습 요구사항 중 일부를 Live 로 코딩하는 모습을 보여줍니다.
-   2. 간단히 TDD(Test Driven Development) 과 닮아 있는 방식으로 코딩하는 것을 보여줍니다.
+    1. 실습 요구사항 중 일부를 Live 로 코딩하는 모습을 보여줍니다.
+    2. 간단히 TDD(Test Driven Development) 과 닮아 있는 방식으로 코딩하는 것을 보여줍니다.
 
 5. 세미나 이후 의견을 공유해보기
-   1. 정말 필요한 기술인지 고민해보기
-   2. M3Mobile 에서 어떻게 적용할 수 있을지 고민하기
+    1. 정말 필요한 기술인지 고민해보기
+    2. M3Mobile 에서 어떻게 적용할 수 있을지 고민하기
 
 # 세미나 자료
 
 ## **객체** 지향 프로그래밍
 
-![img_3.png](docs/images/객체-지향-프로그래밍-쇼핑.png)
+![img_3.png](images/oop-shopping.png)
 
 객체 지향 프로그래밍만 검색해도 많은 양의 서적이 나온다.
 
@@ -36,7 +36,7 @@
 
 절차 지향 프로그래밍은 데이터를 중심으로, 정해진 순서의 **절차(함수)**를 따라 코드를 실행하는 방식이다.
 
-반면 **객체 지향 프로그래밍은 실제 세상처럼 데이터와 관련 행동(메서드)을 하나의 '객체'로 묶어, 
+반면 **객체 지향 프로그래밍은 실제 세상처럼 데이터와 관련 행동(메서드)을 하나의 '객체'로 묶어,
 객체들 간의 상호작용으로 프로그램을 설계**한다.
 
 객체 지향이 코드의 재사용성과 유지보수가 용이하여, 더 복잡하고 큰 규모의 프로젝트에 적합하다.
@@ -45,7 +45,7 @@
 
 객체지향 프로그래밍의 개념을 성립한 사람 중 한 명 앨런 케이
 
-![img_4.png](docs/images/앨런-케이.png)
+![img_4.png](images/Alan-Curtis-Kay.png)
 
 > 나는 OOP를 발명했지만, C++는 내 의도와 거리가 멀다. 나는 '객체'보다 '메시징'을 훨씬 중요하게 생각했다.
 
@@ -63,7 +63,7 @@
     * **'어떻게'가 아닌 '무엇을'** 할지 묻는 약속
     * 객체 간 **협력을 위한 유일한 소통 창구**
 
-![img_4.png](docs/images/메시지-지향-프로그래밍.png)
+![img_4.png](images/message-oriented-programming.png)
 
 그가 생각한 프로그래밍의 본질이 객체의 내부 구조가 아닌,**객체 간의 관계와 소통 방식**에 있다.
 즉, **자율적인 책임**과 **유기적인 협력**이 중요하다!
@@ -83,10 +83,10 @@
 ## 의인화
 
 * 절차 지향 프로그램에서는 데이터와 행동이 나뉘어져 있다.
-![img_3.png](docs/images/절차지향-명령.png)
+  ![img_3.png](images/procedural-programming-toon.png)
 
 * 객체 지향 프로그램에서는 객체가 자신의 데이터로 자율적인 책임을 수행한다.
-![img_3.png](docs/images/객체지향-의인화.png)
+  ![img_3.png](images/object-oriented-programming-toon.png)
 
 ## 초간단 자동차 경주 예시
 
@@ -172,7 +172,6 @@ public class RandomNumberMoveStrategy implements MoveStrategy {
 }
 ```
 
-
 ```java
 public class Position {
     int position;
@@ -192,8 +191,8 @@ public class Position {
 
 여전히 `RandomNumberMoveStrategy` 는 테스트가 불가능하지만, `Position` 은 테스트가 가능하다.
 
-
 #### PositionTest
+
 ```java
 class PositionTest {
     @Test
@@ -201,34 +200,34 @@ class PositionTest {
     void createPosition_withNegativeValue_throwsIllegalArgumentException() {
         // given
         int negativePosition = -1;
-    
+
         // when & then
         Assertions.assertThatThrownBy(() -> new Position(negativePosition))
                 .isInstanceOf(IllegalArgumentException.class);
     }
-    
-    
+
+
     @Test
     @DisplayName("Position 이 양수에 위치하게 되면 예외를 발생시키지 않는다.")
     void createPosition_withPositiveValue_not_throwsIllegalArgumentException() {
         // given
         int positivePosition = 1;
-    
+
         // when & then
         Assertions.assertThatCode(() -> new Position(positivePosition))
                 .doesNotThrowAnyException();
     }
-    
+
     @ParameterizedTest
     @CsvSource(value = {"0,1", "1,2", "10,11"})
     @DisplayName("moved 메서드는 현재 위치에서 1 증가된 새로운 Position 객체를 반환한다. (Parameterized)")
     void moved_returnsNewPositionWithIncrementedValue_parameterized(int currentPos, int expectedMovedPos) {
         // given
         Position currentPosition = new Position(currentPos);
-    
+
         // when
         Position movedPosition = currentPosition.moved();
-    
+
         // then
         Assertions.assertThat(movedPosition.position).isEqualTo(expectedMovedPos);
     }
@@ -236,6 +235,7 @@ class PositionTest {
 ```
 
 #### 랜덤 요소에 의존하는 클래스의 테스트
+
 그렇다면 여전히 `Car` 의 테스트는 불가능한가?
 그리고 `Car` 를 사용하는 다른 클라이언트 코드들의 테스트도 모두 불가능한가?
 
@@ -294,7 +294,7 @@ class CarTest {
 
 로버트 마틴(Uncle Bob)이 말한 **좋은 소프트웨어의 세 가지 원칙**
 
-![img_3.png](docs/images/로버트-마틴.png)
+![img_3.png](images/Robert-Martin.png)
 
 -----
 
@@ -313,12 +313,12 @@ class CarTest {
 
 #### 프로그래머의 뇌 - 펠리너 헤르만스
 
-![img_3.png](docs/images/프로그래머의-뇌.png)
+![img_3.png](images/programmer-brain.png)
 
-* 큰 단위의 코드를 읽는 것보다 작은 단위로 나뉜 여러 코드를 읽는 것이 더 읽기 쉽다. 
-  * 심지어 후자의 코드 라인 수가 더 많더라도!
+* 큰 단위의 코드를 읽는 것보다 작은 단위로 나뉜 여러 코드를 읽는 것이 더 읽기 쉽다.
+    * 심지어 후자의 코드 라인 수가 더 많더라도!
 * 우리는 1 시간 이내의 읽은 것들의 상당한 양을 잊어버린다고 한다.
-  * > 어.. 이거 내가 어제 작성한 코드인데 이게 무엇을 의미하는 코드더라?
+    * > 어.. 이거 내가 어제 작성한 코드인데 이게 무엇을 의미하는 코드더라?
 
 나 자신을 포함한 미래의 동료들이 코드를 쉽게 이해할 수 있어야 한다.
 
@@ -368,7 +368,7 @@ Car testCar = new Car("자동차 이름 테스트", new Position(0), new FakeMov
 
 ## 페어 프로그래밍
 
-![img_6.png](docs/images/img_6.png)
+![img_6.png](images/pair-programming.png)
 
 **두 명의 개발자가 하나의 컴퓨터에서 함께 소프트웨어를 개발하는 방식**
 
@@ -394,43 +394,42 @@ Car testCar = new Car("자동차 이름 테스트", new Position(0), new FakeMov
 
 #### **1) 압도적으로 향상된 코드 품질**
 
-![img_3.png](docs/images/그거-그렇게-하는거-아닌데.png)
+![img_3.png](images/wrong-way-to-do-it.png)
 
-* 내비게이터는 실시간 코드 리뷰어의 역할을 합니다. 
-  * 오타나 간단한 논리적 오류는 코드가 작성되는 순간에 바로잡힙니다. 
-  * 혼자서는 놓치기 쉬운 예외 케이스나 설계의 허점을 동료가 즉시 발견해주므로, 버그가 훨씬 적고 견고한 코드가 만들어집니다.
+* 내비게이터는 실시간 코드 리뷰어의 역할을 합니다.
+    * 오타나 간단한 논리적 오류는 코드가 작성되는 순간에 바로잡힙니다.
+    * 혼자서는 놓치기 쉬운 예외 케이스나 설계의 허점을 동료가 즉시 발견해주므로, 버그가 훨씬 적고 견고한 코드가 만들어집니다.
 
 #### **2) 빠른 속도의 지식 공유 (Bus Factor 감소)**
 
-* **"이 코드는 xxx 님만 알아요"** 
-  * 만약 김대리님이 갑자기 휴가를 가거나 퇴사하면?
+* **"이 코드는 xxx 님만 알아요"**
+    * 만약 김대리님이 갑자기 휴가를 가거나 퇴사하면?
 * **버스 팩터(Bus Factor)**: 이 프로젝트는 N 명이 버스에 치이면 망한다
-  * 특정인 1명에게 지식이 몰려있으면 버스 팩터는 1이 됩니다.
+    * 특정인 1명에게 지식이 몰려있으면 버스 팩터는 1이 됩니다.
 
-![img_3.png](docs/images/버스-팩터.png)
+![img_3.png](images/bus-factor.png)
 
-* 페어 프로그래밍은 문제를 해결하는 강력한 도구 
-  * 한 사람이 아는 단축키, 디버깅 노하우, 특정 라이브러리 지식, 설계 의도 등이 페어링을 하는 동안 자연스럽게 동료에게 전파된다. 
-  * 팀 전체의 지식 수준이 빠르게 상향 평준화됩니다.
+* 페어 프로그래밍은 문제를 해결하는 강력한 도구
+    * 한 사람이 아는 단축키, 디버깅 노하우, 특정 라이브러리 지식, 설계 의도 등이 페어링을 하는 동안 자연스럽게 동료에게 전파된다.
+    * 팀 전체의 지식 수준이 빠르게 상향 평준화됩니다.
 
 #### **3) 높은 집중력과 생산성**
 
-![img_5.png](docs/images/img_5.png)
+![img_5.png](images/high-concentration-productivity.png)
 
-
-* 누군가 옆에서 함께 지켜보고 있으면 이메일을 확인하거나 졸거나 잠시 다른 생각을 하기가 어렵다. 
-  * 페어는 서로가 문제에 계속 집중하도록 돕는 훌륭한 '페이스메이커'가 되어줍니다. 
-  * 이로 인해 코드 작성의 흐름이 끊기지 않고, 결과적으로 더 짧은 시간에 더 높은 품질의 결과물을 만들어내는 경우가 많습니다.
+* 누군가 옆에서 함께 지켜보고 있으면 이메일을 확인하거나 졸거나 잠시 다른 생각을 하기가 어렵다.
+    * 페어는 서로가 문제에 계속 집중하도록 돕는 훌륭한 '페이스메이커'가 되어줍니다.
+    * 이로 인해 코드 작성의 흐름이 끊기지 않고, 결과적으로 더 짧은 시간에 더 높은 품질의 결과물을 만들어내는 경우가 많습니다.
 
 #### **4) 팀워크와 소통 능력 강화**
 
-![img_3.png](docs/images/간신히-소통.png)
+![img_3.png](images/communication-success.png)
 
 
 > "저는 이 부분을 클래스로 분리하고 싶은데, 왜냐하면..."
 
 * 페어 프로그래밍을 하려면 내 생각을 끊임없이 말로 설명해야 합니다.
-  * 같이 소통하는 과정에서 문제에 대한 이해가 깊어지고, 팀원 간의 협업 방식과 문화가 자연스럽게 형성됩니다.
+    * 같이 소통하는 과정에서 문제에 대한 이해가 깊어지고, 팀원 간의 협업 방식과 문화가 자연스럽게 형성됩니다.
 
 ---
 
